@@ -42,7 +42,7 @@
     }
         break;
     default:{
-        audioConfig.audioBitrate = LFLiveAudioBitRate_96Kbps;
+        audioConfig.audioBitrate = LFLiveAudioBitRate_64Kbps;//LFLiveAudioBitRate_96Kbps;
         audioConfig.audioSampleRate = LFLiveAudioSampleRate_44100Hz;
     }
         break;
@@ -53,7 +53,7 @@
 
 - (instancetype)init {
     if (self = [super init]) {
-        _asc = malloc(2);
+        _asc = (char *)malloc(2);
     }
     return self;
 }
@@ -141,8 +141,8 @@
 - (id)initWithCoder:(NSCoder *)aDecoder {
     self = [super init];
     _numberOfChannels = [[aDecoder decodeObjectForKey:@"numberOfChannels"] unsignedIntegerValue];
-    _audioSampleRate = [[aDecoder decodeObjectForKey:@"audioSampleRate"] unsignedIntegerValue];
-    _audioBitrate = [[aDecoder decodeObjectForKey:@"audioBitrate"] unsignedIntegerValue];
+    _audioSampleRate = (LFLiveAudioSampleRate)[[aDecoder decodeObjectForKey:@"audioSampleRate"] unsignedIntegerValue];
+    _audioBitrate = (LFLiveAudioBitRate)[[aDecoder decodeObjectForKey:@"audioBitrate"] unsignedIntegerValue];
     _asc = strdup([[aDecoder decodeObjectForKey:@"asc"] cStringUsingEncoding:NSUTF8StringEncoding]);
     return self;
 }
